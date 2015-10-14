@@ -1,6 +1,6 @@
 {
   "name": "1password-manager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "1Password keychain administrator",
   "repository": {
     "type": "git",
@@ -34,7 +34,6 @@
     "cliff": "^0.1.10",
     "commander": "^2.9.0",
     "prompt": "^0.2.14",
-    "sjcl": "^1.0.3",
     "zip-mapper": "^1.0.2"
   },
   "devDependencies": {}
