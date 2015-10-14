@@ -2,13 +2,22 @@
   "name": "1password-manager",
   "version": "0.1.0",
   "description": "1Password keychain administrator",
-  "main": "src/index.js",
-  "scripts": {
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ManRueda/1password-manager.git"
   },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "bin": {
+    "1password-manager": "bin/1passwordManager"
+  },
+  "preferGlobal": true,
+  "files": [
+    "bin",
+    "completion",
+    "lib"
+  ],
   "keywords": [
     "1password",
     "1pass",
