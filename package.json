@@ -1,0 +1,32 @@
+{
+  "name": "1password-manager",
+  "version": "0.1.0",
+  "description": "1Password keychain administrator",
+  "main": "src/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManRueda/1password-manager.git"
+  },
+  "keywords": [
+    "1password",
+    "1pass",
+    "agilekeychain",
+    "agile",
+    "keychain"
+  ],
+  "author": "Manuel Rueda <manuel.rueda.un@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/ManRueda/1password-manager/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cliff": "^0.1.10",
+    "commander": "^2.9.0",
+    "prompt": "^0.2.14",
+    "sjcl": "^1.0.3",
+    "zip-mapper": "^1.0.2"
+  },
+  "devDependencies": {}
+}

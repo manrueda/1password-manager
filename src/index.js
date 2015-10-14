@@ -1,0 +1,96 @@
+#!/usr/bin/env node
+var KeyChain = require('./KeyChain');
+var program = require('commander');
+var cliff = require('cliff');
+var prompt = require('prompt');
+var pkg = require('../package.json');
+
+program
+  .version(pkg.version)
+  //.option('-S, --savePassword', 'Save password')
+  .option('-L, --list', 'List content')
+  .option('-D, --decrypt', 'Decrypt a content')
+  .option('-K, --keyChain [keyChain]', 'Path to the keyChain')
+  .option('-K, --password [password]', 'Master password')
+  .option('-F, --profile [profile]', 'Path to the keyChain', 'default')
+  .option('-C, --content [contentID]', 'Content ID')
+  .parse(process.argv);
+
+if (program.decrypt) {
+  getKeychain(function(err, keyChain){
+
+    getPassword(function(err, pass){
+
+      getContent(function(err, content){
+
+        var key = new KeyChain(keyChain, program.profile, function (keyChain){
+          keyChain.setMasterKey(pass);
+          console.log(cliff.inspect(key.decryptContent(content)));
+        });
+
+      }, program.content);
+
+    }, program.password);
+
+  }, program.keyChain);
+}
+if (program.list) {
+  getKeychain(function(err, keyChain){
+
+    var key = new KeyChain(keyChain, program.profile, function (keyChain){
+      var rows = [];
+      for(var i = 0; i < keyChain.contents.length; i++){
+        rows.push({
+          tab: '-> ',
+          id: keyChain.contents[i].uuid,
+          title: keyChain.contents[i].title
+        });
+      }
+      console.log(cliff.stringifyObjectRows(rows, ['tab', 'title', 'id'], ['', 'red', 'blue']));
+    });
+
+  }, program.keyChain);
+}
+
+function getPassword(cb, def){
+  if (def){
+    return cb(null, def);
+  }
+  prompt.start();
+  prompt.get([{
+      description: 'Enter your password',
+      name: 'password',
+      hidden: true,
+      required: true
+    }], function (err, result) {
+    cb(err, result.password);
+  });
+}
+
+function getContent(cb, def){
+  if (def){
+    return cb(null, def);
+  }
+  prompt.start();
+  prompt.get([{
+      description: 'Enter the contentID',
+      name: 'content',
+      required: true
+    }], function (err, result) {
+    cb(err, result.content);
+  });
+}
+
+function getKeychain(cb, def){
+  if (def){
+    return cb(null, def);
+  }
+  prompt.start();
+  prompt.get([{
+      description: 'Enter the keyChain path',
+      name: 'keyChain',
+      required: true
+    }], function (err, result) {
+    cb(err, result.keyChain);
+  });
+}
