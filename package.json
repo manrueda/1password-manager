@@ -1,6 +1,6 @@
 {
   "name": "1password-manager",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "1Password keychain administrator",
   "repository": {
     "type": "git",
